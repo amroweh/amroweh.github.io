@@ -15,9 +15,16 @@ export function fillNodes(element){
 
 function drawRing(node){      
     
+    const nodeID = node.data()[0].id
+    // Remove old rings
+    const oldRings = d3.selectAll("#node-"+nodeID+" circle.ring")
+    if(oldRings) oldRings.remove()
+
+    // Add new ring
     node
     .append('circle')
     .attr('id','ring-'+node.data()[0].id)
+    .attr('class', 'ring')
     .attr('r', params.radius)
     .attr('fill', 'white')
     .attr('stroke', function(d){
@@ -42,6 +49,11 @@ export function drawPie(node, pieColours){
     let sumPercentages = 0
     const percentagesCum = []
 
+    // Remove old pies
+    const oldPies = d3.selectAll("#node-"+nodeID+" circle.pie")
+    if(oldPies) oldPies.remove()
+    
+    // Add new pies based on children nodes
     nodeChildren.forEach(()=>{
         sumPercentages+=(100/nodeChildren.length)
         percentagesCum.push(sumPercentages)        
@@ -51,6 +63,7 @@ export function drawPie(node, pieColours){
         
         d3.select("#node-"+nodeID).append('circle')
             .attr('id','pie-'+childID)
+            .attr('class', 'pie')
             .attr("r", radius/2)
             .attr("fill", "transparent")
             .attr("stroke", colours[colours.length - 1 - index])
@@ -64,17 +77,15 @@ export function drawPie(node, pieColours){
 }
 
 export function colorPies(node){
-    
     // Get children of node
     const children = node.data()[0].children
     let pieColors = []
     children.forEach(function(child){
+        console.log("Child: "+child)
         const strokeColor = d3.select("#ring-"+child).attr("stroke")
         pieColors.push(strokeColor)      
     })
-
-    drawPie(node, pieColors)
-    
+    drawPie(node, pieColors)    
 }
 
 function lightenPie(){

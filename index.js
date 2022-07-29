@@ -50,24 +50,53 @@ function addElements(newnodes, newlinks, parentID){
 }
 
 function removeNode(nodeIdToRemove){
-    // Look for node and remove it from node list
-    console.log(nodes)
-    for (let index = 0; index < nodes.length; index++) {
-        console.log(nodes[index].id)
+    // Look for node or children nodes and remove from node list    
+    const nodeChildrenIds = d3.select("#node-"+nodeIdToRemove).data()[0].children
+    // Remove children //THIS NEEDS TO BE RECURSIVE TO WORK!!
+    const numberOfNodes = nodes.length
+    let targetedNodes = 0
+    for (let index = 0; index < numberOfNodes; index++) {        
+        if(nodeChildrenIds.includes(nodes[index].id)) {
+            targetedNodes++;
+        }
+    }    
+    let nodeIndex = 0
+    while(targetedNodes != 0 || nodeIndex == numberOfNodes){        
+
+        if(nodeChildrenIds.includes(nodes[nodeIndex].id)) {
+            nodes.splice(nodeIndex, 1); 
+            targetedNodes--            
+        }        
+        else nodeIndex++                
+    }
+    // Remove node
+    for (let index = 0; index < nodes.length; index++) {        
         if(nodes[index].id === nodeIdToRemove) {nodes.splice(index, 1); break;}
     }
+
     // Look for links shared by node and remove them
-    for (let index = 0; index < links.length; index++) {
-        console.log("Source: "+links[index].source.id)
-        console.log("Target: "+links[index].target.id)
+    // This was used instead of a for loop because the number of links may change within the iteration
+    // if a common link was found, resulting in the index being out of bound
+    //THIS NEEDS TO BE RECURSIVE TO WORK!!
+    const numberOfLinks = links.length
+    let targetedLinks = 0
+    for (let index = 0; index < numberOfLinks; index++) {
         if(links[index].source.id === nodeIdToRemove || links[index].target.id === nodeIdToRemove) 
         {
-            console.log("Source ID = "+ links[index].source.id)
-            console.log("Target ID = "+ links[index].target.id)
-            links.splice(index, 1);
+            targetedLinks++
         }
-            
     }
+    
+    let index = 0
+    while(targetedLinks != 0 || index == numberOfLinks){        
+        if(links[index].source.id === nodeIdToRemove || links[index].target.id === nodeIdToRemove) 
+        {
+            links.splice(index, 1);
+            targetedLinks--            
+        }
+        else index++                
+    }
+
     // Remove node from parent children list
     for (let index = 0; index < nodes.length; index++) {
         let children = nodes[index].children
@@ -117,20 +146,24 @@ function restart() {
   link = link.data(links, function(d) { return d.source.id + "-" + d.target.id; });
   link.exit().remove();
   link = link.enter().append("line").attr("class", "link").merge(link);
-        
-  
 
   // Update and restart the simulation.
   simulation.nodes(nodes);
   simulation.force("link").links(links);
   simulation.alpha(1).restart();
 
+  // Additional custom functions
   node.each(function(){
-    // Update parent pie chart when child is added
-    console.log(nodes)
+    // Update parent pie chart when child is added    
     fillNodes(d3.select(this)) // Adds pie charts to parent nodes
     colorPies(d3.select(this)) // Colors pie segments based on children colours
   })
+
+  // Print resulting node and links list
+  console.log("Nodes: ")
+  console.log(nodes)
+  console.log("Links: ")
+  console.log(links)
 
 }
 
