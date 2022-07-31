@@ -47,65 +47,61 @@ function addElements(newnodes, newlinks, parentID){
     })
     // Re-assign coordinates
     restart()
+    console.log(nodes)
 }
 
 function removeNode(nodeIdToRemove){
-    // Look for node or children nodes and remove from node list    
-    const nodeChildrenIds = d3.select("#node-"+nodeIdToRemove).data()[0].children
-    // Remove children //THIS NEEDS TO BE RECURSIVE TO WORK!!
-    const numberOfNodes = nodes.length
-    let targetedNodes = 0
-    for (let index = 0; index < numberOfNodes; index++) {        
-        if(nodeChildrenIds.includes(nodes[index].id)) {
-            targetedNodes++;
-        }
-    }    
-    let nodeIndex = 0
-    while(targetedNodes != 0 || nodeIndex == numberOfNodes){        
-
-        if(nodeChildrenIds.includes(nodes[nodeIndex].id)) {
-            nodes.splice(nodeIndex, 1); 
-            targetedNodes--            
-        }        
-        else nodeIndex++                
-    }
-    // Remove node
+    // Find all children nodes
+    let nodeChildren = []    
+    getNodeChildren(nodes, nodeIdToRemove, nodeChildren)    
+    // Remove selected node
     for (let index = 0; index < nodes.length; index++) {        
         if(nodes[index].id === nodeIdToRemove) {nodes.splice(index, 1); break;}
     }
-
+    // Remove children nodes
+    nodeChildren.forEach((nodeToRemoveID)=>{
+        for (let index = 0; index < nodes.length; index++) {        
+            if(nodes[index].id === nodeToRemoveID) {nodes.splice(index, 1); break;}
+        }
+    })
+    
     // Look for links shared by node and remove them
     // This was used instead of a for loop because the number of links may change within the iteration
     // if a common link was found, resulting in the index being out of bound
-    //THIS NEEDS TO BE RECURSIVE TO WORK!!
-    const numberOfLinks = links.length
-    let targetedLinks = 0
-    for (let index = 0; index < numberOfLinks; index++) {
-        if(links[index].source.id === nodeIdToRemove || links[index].target.id === nodeIdToRemove) 
-        {
-            targetedLinks++
+    if(links.length != 0){ // Only perform this if there are still links
+        const numberOfLinks = links.length
+        let targetedLinks = 0
+        for (let index = 0; index < numberOfLinks; index++) {
+            if(links[index].source.id === nodeIdToRemove || links[index].target.id === nodeIdToRemove
+                || nodeChildren.includes(links[index].source.id) || nodeChildren.includes(links[index].target.id)
+                ) 
+            {
+                targetedLinks++
+            }
+        }
+        
+        let index = 0
+        while(targetedLinks != 0 || index == numberOfLinks){        
+            if(links[index].source.id === nodeIdToRemove || links[index].target.id === nodeIdToRemove
+                || nodeChildren.includes(links[index].source.id) || nodeChildren.includes(links[index].target.id)) 
+            {
+                links.splice(index, 1);
+                targetedLinks--            
+            }
+            else index++                
         }
     }
     
-    let index = 0
-    while(targetedLinks != 0 || index == numberOfLinks){        
-        if(links[index].source.id === nodeIdToRemove || links[index].target.id === nodeIdToRemove) 
-        {
-            links.splice(index, 1);
-            targetedLinks--            
-        }
-        else index++                
-    }
-
     // Remove node from parent children list
-    for (let index = 0; index < nodes.length; index++) {
-        let children = nodes[index].children
-        console.log("CHildren: "+children)
+    nodes.forEach((node)=>{
+        let children = node.children
         for (let i = 0; i < children.length; i++) {
-            if(children[i] === nodeIdToRemove) {children.splice(index, 1);}                
+            if(children[i] === nodeIdToRemove) {
+                children.splice(i, 1);
+            }                
         }
-        
-    }
+    })
+
     restart()
 }
 
@@ -195,4 +191,18 @@ function dragended(e,d) {
     simulation.alphaTarget(0);
     d.fx = null;
     d.fy = null;
+}
+
+// Helper functions
+function getNodeChildren(nodeList, nodeID, arr){    
+    console.log(nodeID)
+    let selectedNode = nodeList.filter(node => {return node.id === nodeID})[0]
+    let childNodeIds = selectedNode.children   
+    if(!childNodeIds || childNodeIds.length == 0) return 
+    else {
+        childNodeIds.forEach((childnode)=>{
+            arr.push(childnode)
+            getNodeChildren(nodeList, childnode, arr)
+        })        
+    }
 }
