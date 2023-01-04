@@ -1,0 +1,20 @@
+#contact{
+    text-align: center;
+    position: relative;    
+}
+
+#arrowToTop{
+    width: 30px;
+    height: auto;
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
+    cursor: pointer;
+    transition: transform 200ms ease;
+}
+#arrowToTop.lightMode{
+    content: url(../Assets/Vectors/ArrowUp_Light.svg);    
+}
+#arrowToTop:hover{
+    transform: scale(0.95);
+}

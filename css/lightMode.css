@@ -1,0 +1,65 @@
+/* Main Body and Text */
+body.lightMode{
+    background-color: #EAE5DA;    
+    background-image: radial-gradient(#548535 0.5px, #EAE5DA 0.5px);
+    background-size: 10px 10px;
+    color: var(--text-light);
+}
+
+/* Header */
+#header-menu-toggle.lightMode svg rect{
+    fill: var(--main-light);
+}
+#nav-list.lightMode li:hover{
+    color: var(--main-light);
+}
+header.lightMode.open{
+    /* background-color: #EAE5DA; */
+    background-color: transparent;
+    background-image: radial-gradient(#548535 0.5px, #EAE5DA 0.5px);
+    color: var(--text-light);
+}
+
+/* Hero */
+#hero.lightMode .light{
+    display: inline;    
+}
+#hero.lightMode .dark{
+    display: none;    
+}
+
+/* About */
+#about-image.lightMode #about-image-svg{
+    display: none;
+}
+#about-image.lightMode #about-image-svg-light{
+    display: inline;
+}
+
+/* Projects */
+.project-title.lightMode{
+    border-color: var(--main-light);
+}
+#project1.lightMode #p1-light{
+    display: inline;
+}
+#project1.lightMode #p1-dark{
+    display: none;
+}
+#project2.lightMode #p2-light{
+    display: inline;
+}
+#project2.lightMode #p2-dark{
+    display: none;
+}
+#project3.lightMode #p3-light{
+    display: inline;
+}
+#project3.lightMode #p3-dark{
+    display: none;
+}
+
+/* Testimony */
+.quotationMark.lightMode svg path{
+    stroke: var(--main-dark);
+}

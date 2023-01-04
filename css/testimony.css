@@ -1,0 +1,40 @@
+#testimony{
+    position: relative;    
+}
+
+#quotation{
+    margin: auto;
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;    
+}
+
+.quotationMark{
+    width: calc(10px + 1vw);
+}
+
+#openQuote{
+    align-self: flex-start;
+    display: flex;
+}
+
+#closeQuote{
+    transform: rotate(180deg);
+    align-self: flex-end;
+    display: flex;
+}
+
+#quoteText{
+    text-align: justify;
+    margin-bottom: 15px;
+    /* font-size: 16px; */
+}
+
+#quotation-speaker{
+    width: 100%;    
+    text-align: right;
+}
+
+.quotationMark.lightMode path{
+    stroke: var(--main-light);
+}

@@ -1,0 +1,103 @@
+.project{
+    display: grid;    
+    grid-template-rows: auto;
+    grid-column-gap: calc(10px + 3vw);
+    grid-template-areas: "Image Title"
+    "Image Description";
+}
+.project-image{
+    grid-area: Image;
+    align-self: center;
+}
+.project-image object, .project-image svg{
+    width: 100%;
+    height: auto;
+}
+.project-description{
+    align-self: flex-start;
+    grid-area: Description;
+}
+.project-title{
+    margin-bottom: calc(20px + 1.5vh); 
+    align-self: flex-end;   
+    grid-area: Title;
+}
+.project-subtitle{
+    margin-bottom: 1vh;
+    text-align: justify;
+}
+.project-tech{
+    font-style: italic;
+}
+
+/* Initially, projects in dark mode */
+#p1-light, #p2-light, #p3-light{
+    display: none;
+}
+
+
+/* For project 2 */
+/* To flip image */
+.project#project2{
+    grid-template-areas: "Title Image"
+    "Description Image";
+}
+/* To alter image on mobile */
+.svg-half{
+    display: none;
+}
+.svg-full{
+    display: inline;
+}
+
+@media only screen and (max-width:768px){
+    .project{
+        display: block;
+        text-align: left;
+    }
+    .project-title{
+        border-left: 5px solid var(--main-dark);
+        padding-left: calc(10px + 1vw);
+    }
+    .project-image{
+        width: 100%;
+        text-align: center;
+        margin-bottom: calc(10px + 2vw);
+    }
+    .project-image object, .project-image svg{
+        width: 90%;
+        max-width: 450px;
+    }
+    .project-btn{
+        text-align: center;
+    }
+    
+}
+
+@media only screen and (max-width:900px){
+    section.project{
+        margin-bottom: calc(10px + 2vh);
+        min-height: 0;        
+        padding-top: 8vh;
+        padding-bottom: 8vh;
+    }
+}
+
+@media only screen and (min-width:900px){    
+    .svg-half{
+        display: inline;
+    }
+    .svg-full{
+        display: none;
+    }
+    #project2.container{
+        padding-left: calc(10px + 3vw);
+        padding-right: 0;
+        margin-right: 0;
+    }
+    #project3.container{
+        padding-right: calc(10px + 3vw);
+        padding-left: 0;
+        margin-left: 0;
+    }
+}

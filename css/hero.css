@@ -1,0 +1,75 @@
+#hero{
+    width: 100%;
+}
+
+#hero h1{
+    font-size:calc(20px + min(4vw, 48px));
+}
+
+#hero-content{
+    display: flex;
+    align-items: center;
+    gap: calc(10px + 2vw);
+}
+
+#hero-text{
+    flex: 2;
+}
+
+#hero-image{
+    transition: opacity 3000ms ease;
+    flex: 2;
+}
+
+#hero-image svg{
+    width: 100%;
+    height: auto;
+}
+
+#HeroAboutButton:hover rect{
+    stroke: var(--btn-highlight);
+    cursor: pointer;
+}
+#HeroAboutButton:hover path{
+    fill: var(--btn-highlight);
+    cursor: pointer;
+}
+
+
+/* Initially projects in dark mode */
+#hero .light{
+    display: none;
+}
+/* Alter for desktop vs mobile */
+#hero .desktop{
+    display: inline;
+}
+#hero .mobile{
+    display: none;
+}
+
+
+
+
+@media only screen and (max-width:768px){
+    #hero-content{
+        display: block;        
+    }
+    #hero-image{
+        width: 100%;
+        text-align: center;
+        margin-top: 10vh;
+    }
+    #hero-text{
+        text-align: center;
+    }
+    #hero-text .btn{
+        display: none;
+    }
+    #hero .desktop{
+        display: none;
+    }
+    #hero .mobile{
+        display: inline;
+    }
+}

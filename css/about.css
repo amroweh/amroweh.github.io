@@ -1,0 +1,42 @@
+#about{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: calc(20px + 2vw);
+}
+#about-description{
+    flex: 1;
+}
+#about-image{
+    flex: 1;    
+}
+#about-description p{
+    margin-bottom: 1.5vh;
+}
+#about-image-svg, #about-image-svg-light{
+    width: 100%;
+    height: auto;
+}
+#about-image-svg-light{
+    display: none;
+}
+#technology-list{
+    display: flex;
+    gap: calc(20px + 3vw);
+}
+
+@media only screen and (max-width:768px){
+    #about{
+        display: block;
+    }
+    #about-image{
+        margin-bottom: calc(10px + 2vw);
+        text-align: center;        
+    }
+    #about-image-svg{
+        width: 90%;
+    }
+    #about-image-svg{
+        max-width: 450px;
+    }
+}

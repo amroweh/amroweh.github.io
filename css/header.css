@@ -1,0 +1,82 @@
+/* Header */
+header{
+    background-color: transparent;
+    width: 100%;    
+    padding-top: 15px;
+    padding-bottom: 15px;  
+    position: fixed;
+    z-index: 1;          
+}
+#nav-list{
+    display: flex;
+    align-items: center;
+    gap: calc(10px + 3vw);
+    justify-content: right;
+}
+#nav-list li{
+    list-style-type: none; 
+    transition: color 300ms ease;
+}
+#nav-list li:hover{
+    color: var(--main-dark);
+    cursor: pointer;
+}
+#nav-list li:last-child{
+    padding-right: 25px;
+    padding-left: 25px;
+    line-height: 0;
+}
+#nav-list svg{
+    height: 20px;
+    width: auto;
+}
+#header-menu-toggle{
+    display: none;
+}
+#header-menu-toggle svg{
+    height: 20px;
+    width: auto;    
+}
+#colorSchemeToggle-Moon path, #colorSchemeToggle-Sun .sunFill{
+    transition: fill 200ms ease;
+}
+#colorSchemeToggle-Moon{
+    display: none;
+}
+#colorSchemeToggle-Moon:hover path{
+    fill: #78746a;
+
+}
+#colorSchemeToggle-Sun:hover .sunFill{
+    fill: yellow;
+}
+
+@media only screen and (max-width:480px) {
+    
+    #nav-list{
+        display: block;
+        text-align: center;        
+    }
+
+    header.open{
+        /* Must fix to only work on menu open */
+        opacity: 1;
+        background-image: radial-gradient(#9CE579 0.2px, var(--background-dark) 0.5px);
+        background-size: 10px 10px;
+        color: var(--text-dark);
+    }
+    
+    #nav-list.hide{
+        display: none;
+    }
+    #header-menu-toggle{
+        display: block;
+        line-height: 0;
+        text-align: right;
+        padding-right: 3vw;
+        cursor: pointer;
+    }
+    #nav-list li{
+        padding: 3vh 0px;
+    }
+}
