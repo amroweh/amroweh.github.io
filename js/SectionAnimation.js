@@ -278,7 +278,6 @@ function isInCloseView(currentY, section, factor=0.5){
 // }
 
 function animatePC(){
-    console.log("Animating PC")
     let keyboardAnimationColor = "#ED4C72"
     let p1_svgs = document.querySelectorAll("#project1.project svg")
     
@@ -365,8 +364,7 @@ function animateWorld(){
 
     groups.forEach((group, index)=>{
         if(group.length!==0){
-            let eventID = null
-            setTimeout(() => {
+            let eventID = setTimeout(() => {
                 eventID = setInterval(() => {
                     let groupEntries = group.length
                     let randomCircle = Math.floor(Math.random() * groupEntries)                      
@@ -390,7 +388,6 @@ function animateWorld(){
             arcs[randomArc].setAttribute("stroke", animationArcTransitionColor)        
             arcs[randomArc].setAttribute("style", "transition: stroke 500ms ease")        
             setTimeout(() => {
-                // arcs[randomArc].setAttribute("style", "transition: none") 
                 arcs[randomArc].setAttribute("stroke", animationArcFinalColor)
             }, 200)        
         }, 100)
@@ -402,7 +399,6 @@ function animateWorld(){
 }
 
 function animateFood(){
-    console.log("Animating Food")
 
     let animationLinksColor = "#ED4C72"
 
@@ -505,17 +501,18 @@ document.onscroll = (e) => {
             animateDown("#project2 .project-title")
             animateDown("#project2-description")
 
-            // animateWorld()
+            //animateWorld()
         } 
         if(isInCloseView(this.scrollY, animate_project2) && !isInCloseView(initialScroll, animate_project2)) animateWorld()
-        // if(isInView(this.scrollY, animate_project3) && !isInView(initialScroll, animate_project3)){
-        //     animateLeft("#project3-image")
-        //     animateDown("#project3 .project-title")
-        //     animateDown("#project3-description")
+        if(isInView(this.scrollY, animate_project3) && !isInView(initialScroll, animate_project3)){
+            animateLeft("#project3-image")
+            animateDown("#project3 .project-title")
+            animateDown("#project3-description")
 
-        //     // animateFood()
-        // }
+            //animateFood()
+        }
         if(isInCloseView(this.scrollY, animate_project3) && !isInCloseView(initialScroll, animate_project3)) animateFood()
+        
         // Testimony
         if(isInView(this.scrollY, animate_testimony) && !isInView(initialScroll, animate_testimony)){
             animateLeft("#testimony #openQuote")
