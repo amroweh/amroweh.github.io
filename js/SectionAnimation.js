@@ -508,13 +508,13 @@ document.onscroll = (e) => {
             // animateWorld()
         } 
         if(isInCloseView(this.scrollY, animate_project2) && !isInCloseView(initialScroll, animate_project2)) animateWorld()
-        if(isInView(this.scrollY, animate_project3) && !isInView(initialScroll, animate_project3)){
-            animateLeft("#project3-image")
-            animateDown("#project3 .project-title")
-            animateDown("#project3-description")
+        // if(isInView(this.scrollY, animate_project3) && !isInView(initialScroll, animate_project3)){
+        //     animateLeft("#project3-image")
+        //     animateDown("#project3 .project-title")
+        //     animateDown("#project3-description")
 
-            // animateFood()
-        }
+        //     // animateFood()
+        // }
         if(isInCloseView(this.scrollY, animate_project3) && !isInCloseView(initialScroll, animate_project3)) animateFood()
         // Testimony
         if(isInView(this.scrollY, animate_testimony) && !isInView(initialScroll, animate_testimony)){
