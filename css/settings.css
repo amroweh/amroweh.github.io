@@ -57,7 +57,7 @@ section{
 
 .clr-main{
     color: var(--main-dark);
-    display: inline-block;
+    /* display: inline-block; */
     transition: transform ease 200ms;
     
 }
